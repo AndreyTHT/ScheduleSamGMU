@@ -415,7 +415,7 @@ const pillsEl = document.getElementById('groupPills');
 GROUPS.forEach(g=>{
   const b = document.createElement('button');
   b.className = 'pill' + (g===currentGroup ? ' active':'');
-  b.textContent = DAY_SHORT[d];
+  b.textContent = g;
   b.onclick = ()=>{ currentGroup = g; refreshPills(); render(); };
   b.dataset.g = g;
   pillsEl.appendChild(b);
@@ -454,7 +454,7 @@ function renderDays(main){
   DAYS.forEach(d=>{
     const b = document.createElement('button');
     b.className = 'day-tab' + (d===currentDay ? ' active':'');
-    b.textContent = d.slice(0,3);
+    b.textContent = DAY_SHORT[d];
     b.onclick = ()=>{ currentDay = d; render(); };
     tabsWrap.appendChild(b);
   });
