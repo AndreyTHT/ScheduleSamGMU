@@ -275,6 +275,7 @@ footer{
 <script>
 /* ===================== DATA ===================== */
 const DAYS = ["Понедельник","Вторник","Среда","Четверг","Пятница"];
+const DAY_SHORT = {"Понедельник":"Пн","Вторник":"Вт","Среда":"Ср","Четверг":"Чт","Пятница":"Пт"};
 const DAY_NOTE = {"Среда":"искл. 04.11.2026"};
 
 // slot time ranges per day-shift pattern
@@ -405,7 +406,7 @@ const DATA = {
 };
 
 const GROUPS = Object.keys(DATA);
-let currentGroup = "15-БТ";
+let currentGroup = "11-ТМ";
 let currentView = "days";
 let currentDay = "Понедельник";
 
@@ -414,7 +415,7 @@ const pillsEl = document.getElementById('groupPills');
 GROUPS.forEach(g=>{
   const b = document.createElement('button');
   b.className = 'pill' + (g===currentGroup ? ' active':'');
-  b.textContent = g;
+  b.textContent = DAY_SHORT[d];
   b.onclick = ()=>{ currentGroup = g; refreshPills(); render(); };
   b.dataset.g = g;
   pillsEl.appendChild(b);
