@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Расписание ПМИШ · 1 курс · осень 2026</title>
+<style>
+:root{
+  --bg1:#eef2ff;
+  --bg2:#fdf2f8;
+  --bg3:#f0fdfa;
+  --card:#ffffffcc;
+  --card-solid:#ffffff;
+  --text:#1e1b2e;
+  --text-dim:#5b5470;
+  --border:#e2def0;
+  --accent1:#7c5cff;
+  --accent2:#ff6fa5;
+  --accent3:#22c5b8;
+  --shadow: 0 8px 30px rgba(90,60,180,0.12);
+  --pill-bg:#f4f1fc;
+  --active-bg: linear-gradient(135deg,var(--accent1),var(--accent2));
+  --active-text:#fff;
+}
+[data-theme="dark"]{
+  --bg1:#181227;
+  --bg2:#1b1130;
+  --bg3:#12172b;
+  --card:#221a38cc;
+  --card-solid:#221a38;
+  --text:#f1edff;
+  --text-dim:#b3a9d1;
+  --border:#3a2f57;
+  --accent1:#9c7bff;
+  --accent2:#ff8fc0;
+  --accent3:#3fe0d0;
+  --shadow: 0 8px 30px rgba(0,0,0,0.45);
+  --pill-bg:#251c3d;
+  --active-bg: linear-gradient(135deg,var(--accent1),var(--accent2));
+  --active-text:#1a1330;
+}
+
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: radial-gradient(circle at 15% 0%, var(--bg2), transparent 55%),
+              radial-gradient(circle at 85% 10%, var(--bg3), transparent 50%),
+              linear-gradient(160deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+  background-attachment: fixed;
+  color: var(--text);
+  min-height:100vh;
+  transition: background 0.4s ease, color 0.4s ease;
+  padding-bottom: 40px;
+}
+
+.wrap{max-width: 900px; margin:0 auto; padding: 18px 14px 0;}
+
+header.top{
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 6px 0 18px;
+}
+.title-block h1{
+  font-size: 1.35rem;
+  margin:0 0 2px;
+  background: linear-gradient(135deg,var(--accent1),var(--accent2) 60%, var(--accent3));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  font-weight:800;
+  letter-spacing:-0.02em;
+}
+.title-block p{
+  margin:0; font-size:0.8rem; color:var(--text-dim);
+}
+
+.theme-toggle{
+  border:none; cursor:pointer;
+  width:44px;height:44px;border-radius:14px;
+  background: var(--card);
+  border:1px solid var(--border);
+  box-shadow: var(--shadow);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;
+  backdrop-filter: blur(10px);
+  transition: transform 0.15s ease;
+}
+.theme-toggle:active{transform: scale(0.9);}
+
+.section-label{
+  font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em;
+  color: var(--text-dim); margin: 18px 2px 8px; font-weight:700;
+}
+
+.group-pills{
+  display:flex; gap:8px; overflow-x:auto; padding: 2px 2px 4px;
+  scrollbar-width:none;
+}
+.group-pills::-webkit-scrollbar{display:none;}
+.pill{
+  flex:0 0 auto;
+  padding:9px 16px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: var(--pill-bg);
+  color: var(--text);
+  font-size:0.88rem;
+  font-weight:600;
+  cursor:pointer;
+  transition: all 0.2s ease;
+  white-space:nowrap;
+}
+.pill.active{
+  background: var(--active-bg);
+  color: var(--active-text);
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(124,92,255,0.35);
+}
+
+.view-tabs{
+  display:flex; gap:8px; padding: 2px 2px 4px;
+}
+.view-tab{
+  flex:1;
+  padding:10px 8px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size:0.82rem;
+  font-weight:600;
+  cursor:pointer;
+  text-align:center;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+.view-tab.active{
+  background: var(--active-bg);
+  color:var(--active-text);
+  border-color:transparent;
+  box-shadow: 0 4px 14px rgba(124,92,255,0.3);
+}
+
+main{margin-top: 14px;}
+
+/* ---- DAY TABS VIEW ---- */
+.day-tabs{
+  display:flex; gap:6px; overflow-x:auto; padding: 4px 2px 12px;
+  scrollbar-width:none;
+}
+.day-tabs::-webkit-scrollbar{display:none;}
+.day-tab{
+  flex:0 0 auto;
+  padding:8px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background: var(--pill-bg);
+  color:var(--text-dim);
+  font-size:0.82rem;
+  font-weight:700;
+  cursor:pointer;
+  transition: all 0.2s ease;
+}
+.day-tab.active{
+  background: var(--card-solid);
+  color: var(--accent1);
+  border-color: var(--accent1);
+}
+
+.lesson-card{
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px 16px;
+  margin-bottom:10px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.lesson-card::before{
+  content:"";
+  position:absolute; left:0; top:0; bottom:0; width:4px;
+  background: linear-gradient(180deg,var(--accent1),var(--accent2));
+}
+.lesson-card.type-lec::before{background: linear-gradient(180deg,var(--accent1),var(--accent3));}
+.lesson-card.type-prac::before{background: linear-gradient(180deg,var(--accent2),var(--accent1));}
+.lesson-card.type-lab::before{background: linear-gradient(180deg,var(--accent3),var(--accent2));}
+
+.lesson-time{
+  font-size:0.78rem; font-weight:700; color:var(--accent1);
+  margin-bottom:4px;
+}
+.lesson-type{
+  display:inline-block;
+  font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+  padding:2px 8px; border-radius:6px;
+  background: var(--pill-bg); color: var(--text-dim);
+  margin-bottom:6px;
+}
+.lesson-name{
+  font-size:0.98rem; font-weight:700; margin: 2px 0 4px; line-height:1.3;
+}
+.lesson-place{
+  font-size:0.82rem; color: var(--text-dim);
+}
+.empty-day{
+  text-align:center; padding: 40px 10px; color: var(--text-dim); font-size:0.9rem;
+}
+
+/* ---- GRID VIEW ---- */
+.grid-wrap{overflow-x:auto; border-radius:16px; box-shadow:var(--shadow); border:1px solid var(--border);}
+table.grid{
+  width:100%; border-collapse:collapse; min-width:640px;
+  background: var(--card-solid);
+}
+table.grid th{
+  background: var(--active-bg);
+  color: var(--active-text);
+  font-size:0.75rem;
+  padding:10px 6px;
+  position:sticky; top:0;
+}
+table.grid td{
+  border:1px solid var(--border);
+  padding:6px 8px;
+  font-size:0.72rem;
+  vertical-align:top;
+  min-width:120px;
+}
+table.grid td.time-cell{
+  font-weight:700; color:var(--accent1); white-space:nowrap; min-width:70px; background: var(--pill-bg);
+}
+table.grid .g-name{font-weight:700; margin-bottom:2px; display:block;}
+table.grid .g-type{color:var(--text-dim); font-size:0.66rem; display:block;}
+table.grid .g-place{color:var(--text-dim); font-size:0.66rem; display:block; margin-top:2px;}
+
+/* ---- CARDS (WEEK) VIEW ---- */
+.week-day-block{margin-bottom: 22px;}
+.week-day-title{
+  font-size:1rem; font-weight:800; margin: 4px 2px 10px;
+  color: var(--accent1);
+}
+
+footer{
+  text-align:center; color:var(--text-dim); font-size:0.72rem; margin-top: 30px; padding: 0 20px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="title-block">
+      <h1>Расписание ПМИШ</h1>
+      <p>1 курс · осень 2026/2027 · 02.09–28.12</p>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">🌙</button>
+  </header>
+
+  <div class="section-label">Группа</div>
+  <div class="group-pills" id="groupPills"></div>
+
+  <div class="section-label">Вид</div>
+  <div class="view-tabs" id="viewTabs">
+    <button class="view-tab active" data-view="days">По дням</button>
+    <button class="view-tab" data-view="grid">Таблица</button>
+    <button class="view-tab" data-view="week">Карточки</button>
+  </div>
+
+  <main id="main"></main>
+
+  <footer>Приказ утверждён проректором Ю.В. Мякишевой · период 02.09.2026 – 28.12.2026</footer>
+</div>
+
+<script>
+/* ===================== DATA ===================== */
+const DAYS = ["Понедельник","Вторник","Среда","Четверг","Пятница"];
+const DAY_NOTE = {"Среда":"искл. 04.11.2026"};
+
+// slot time ranges per day-shift pattern
+const SLOTS_FULL = ["13:00-13:45","13:50-14:35","14:40-15:25","15:30-16:15","16:20-17:05","17:10-17:55","18:00-18:45","18:50-19:35","19:40-20:25","20:30-21:15"];
+const SLOTS_SHORT = ["14:40-15:25","15:30-16:15","16:20-17:05","17:10-17:55","18:00-18:45","18:50-19:35","19:40-20:25","20:30-21:15"];
+
+function detectType(name){
+  if(/лекци/i.test(name)) return "lec";
+  if(/лаборатор/i.test(name)) return "lab";
+  if(/практич/i.test(name)) return "prac";
+  return "other";
+}
+function typeLabel(t){
+  return {lec:"Лекция", lab:"Лаб. занятия", prac:"Практ. занятия", other:"Занятие"}[t];
+}
+
+// Each entry: {slotStart, slotEnd (inclusive index into full 10-slot grid 0..9), type, subject, place}
+// slots indices refer to SLOTS_FULL (0-9): 0=13:00,1=13:50,2=14:40,3=15:30,4=16:20,5=17:10,6=18:00,7=18:50,8=19:40,9=20:30
+
+const DATA = {
+"11-ТМ": {
+  "Понедельник": [
+    [2,3,"lec","Технологическая акселерация","ЭИОС · 12 недель"],
+    [4,5,"lec","Медицинск. статистика","ЭИОС · 16 недель"],
+    [6,7,"lab","Технологии AR/VR","Гагарина 18, ауд.2.231, 2.233 · 16 недель"],
+    [8,9,"lab","Технологическая акселерация","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Вторник": [
+    [2,3,"lec","Анализ данных на Python","ЭИОС · 16 недель"],
+    [4,5,"prac","Ознакомительная практика","ЭИОС · 16 недель"],
+    [6,7,"prac","Медицинск. статистика","Гагарина 18, ауд.2.231, 2.233 · 16 недель"],
+    [8,9,"lab","Анализ данных на Python","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Среда": [
+    [4,5,"lec","Информационная безопасность","ЭИОС · 12 недель"],
+    [6,7,"lec","Медиц. аппаратно-програм. комплексы","ЭИОС · 16 недель"],
+    [8,9,"prac","Медиц. аппаратно-програм. комплексы","ЭИОС · 16 недель"]
+  ],
+  "Четверг": [
+    [4,9,"prac","Ознакомительная практика","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Пятница": [
+    [4,5,"lec","Технологии AR/VR","ЭИОС · 16 недель"],
+    [6,9,"prac","Информационная безопасность","ЭИОС · 14 недель"]
+  ]
+},
+"12-ИИ": {
+  "Понедельник": [
+    [2,3,"lec","Технологическая акселерация","ЭИОС · 12 недель"],
+    [4,5,"lec","Медицинск. статистика","ЭИОС · 16 недель"],
+    [6,7,"lab","Технологии AR/VR","Гагарина 18, ауд.2.231, 2.233 · 16 недель"],
+    [8,9,"lab","Технологическая акселерация","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Вторник": [
+    [2,3,"lec","Анализ данных на Python","ЭИОС · 16 недель"],
+    [4,5,"prac","Ознакомительная практика","ЭИОС · 16 недель"],
+    [6,7,"prac","Медицинск. статистика","Гагарина 18, ауд.2.231, 2.233 · 16 недель"],
+    [8,9,"lab","Анализ данных на Python","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Среда": [
+    [4,5,"lec","3D анатомия - физиология","ЭИОС · 12 недель"],
+    [6,7,"lec","Методы глубокого обучения","ЭИОС · 16 недель"],
+    [8,9,"lab","Методы глубокого обучения","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Четверг": [
+    [4,9,"prac","Ознакомительная практика","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Пятница": [
+    [4,5,"lec","Технологии AR/VR","ЭИОС · 16 недель"],
+    [6,9,"prac","3D анатомия - физиология","Гагарина 18, ауд.2.231, 2.233 · 14 недель"]
+  ]
+},
+"15-БТ": {
+  "Понедельник": [
+    [3,3,"lec","Анатомия","ЭИОС · 8 недель"],
+    [4,4,"prac","Анатомия","4-313 (Чапаевская, 227) · 16 недель"],
+    [5,7,"prac","Технологическая акселерация","Лекционный зал, Чапаевская, 227 · 16 недель"]
+  ],
+  "Вторник": [
+    [1,1,"lec","Иностр.язык в проф. сфере","ЭИОС · 8 недель"],
+    [2,2,"lec","Биоинформатика","ЭИОС · 16 недель"],
+    [3,3,"lab","Аддитивные технологии","Технопарк ПИШ, Арцыбушевская, 171 · 16 недель"],
+    [4,5,"prac","Иностр.язык в проф. сфере","кафедра иностранных языков, Тухачевского, 226 · 16 недель"]
+  ],
+  "Среда": [
+    [2,3,"prac","Педагогическая практика","4-313 (Чапаевская, 227) · 16 недель"],
+    [4,5,"lab","Биоинформатика","16 недель"]
+  ],
+  "Четверг": [
+    [0,0,"lec","Аддитивные технологии","ЭИОС · 16 недель"],
+    [1,2,"lec","Технологическая акселерация","ЭИОС · 16 недель"],
+    [3,4,"prac","Педагогическая практика","4-313 (Чапаевская, 227) · 16 недель"]
+  ],
+  "Пятница": [
+    [2,3,"lec","Биоматериаловедение","ЭИОС · 12 недель"],
+    [4,5,"lab","Биоматериаловедение","НИИ Биотех, Гагарина, 20 · 12 недель"],
+    [6,7,"prac","Биоматериаловедение","НИИ Биотех, Гагарина, 20 · 16 недель"]
+  ]
+},
+"14-БТ": {
+  "Понедельник": [
+    [2,2,"lec","Методич.сопров. Применения диагн.тестсистем","ЭИОС · 16 недель"],
+    [3,3,"lec","Базовые аспекты биохимии человека","ЭИОС · 8 недель"],
+    [4,5,"lab","Базовые аспекты биохимии человека","Кафедра биохимии, Арцыбушевская, 171 · 16 недель"],
+    [6,7,"lab","Технологическая акселерация","16 недель"]
+  ],
+  "Вторник": [
+    [1,1,"lec","Иностр.язык в проф. сфере","ЭИОС · 8 недель"],
+    [2,2,"lec","Биоинформатика","ЭИОС · 16 недель"],
+    [3,4,"prac","Методич.сопров. Применения диагн.тестсистем","Гагарина 20, ауд 309, 310 · 16 недель"],
+    [5,6,"prac","Иностр.язык в проф. сфере","Гагарина 18, ауд.2.231, 2.233 · 16 недель"]
+  ],
+  "Среда": [
+    [2,4,"prac","Педагогическая практика","Гагарина 20, ауд 309, 310 · 16 недель"],
+    [5,6,"lab","Биоинформатика","Гагарина 20, ауд 309, 310 · 16 недель"]
+  ],
+  "Четверг": [
+    [0,1,"lec","Основы медиц. Микробиологии и иммунологии","ЭИОС · 8 недель"],
+    [2,3,"lec","Технологическая акселерация","ЭИОС · 12 недель"],
+    [4,6,"prac","Основы медиц. Микробиологии и иммунологии","Кафедра микробиологии, Гагарина, 18 · 10 недель"]
+  ],
+  "Пятница": [
+    [2,3,"lec","Основы молекулярной биологии","ЭИОС · 8 недель"],
+    [4,5,"prac","Педагогическая практика","Гагарина 20, ауд 309, 310 · 16 недель"],
+    [6,7,"prac","Основы молекулярной биологии","Кафедра биологии, Арцыбушевская, 171 · 16 недель"]
+  ]
+}
+};
+
+const GROUPS = Object.keys(DATA);
+let currentGroup = "15-БТ";
+let currentView = "days";
+let currentDay = "Понедельник";
+
+/* ===================== RENDER ===================== */
+const pillsEl = document.getElementById('groupPills');
+GROUPS.forEach(g=>{
+  const b = document.createElement('button');
+  b.className = 'pill' + (g===currentGroup ? ' active':'');
+  b.textContent = g;
+  b.onclick = ()=>{ currentGroup = g; refreshPills(); render(); };
+  b.dataset.g = g;
+  pillsEl.appendChild(b);
+});
+function refreshPills(){
+  [...pillsEl.children].forEach(b=> b.classList.toggle('active', b.dataset.g===currentGroup));
+}
+
+document.getElementById('viewTabs').addEventListener('click', (e)=>{
+  const btn = e.target.closest('.view-tab');
+  if(!btn) return;
+  currentView = btn.dataset.view;
+  [...document.querySelectorAll('.view-tab')].forEach(t=>t.classList.toggle('active', t===btn));
+  render();
+});
+
+function lessonsForDay(group, day){
+  const raw = (DATA[group] && DATA[group][day]) || [];
+  return raw.map(([s,e,type,name,place])=>({
+    time: SLOTS_FULL[s].split('-')[0] + '–' + SLOTS_FULL[e].split('-')[1],
+    type, name, place
+  }));
+}
+
+function render(){
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  if(currentView === 'days') renderDays(main);
+  else if(currentView === 'grid') renderGrid(main);
+  else renderWeek(main);
+}
+
+function renderDays(main){
+  const tabsWrap = document.createElement('div');
+  tabsWrap.className = 'day-tabs';
+  DAYS.forEach(d=>{
+    const b = document.createElement('button');
+    b.className = 'day-tab' + (d===currentDay ? ' active':'');
+    b.textContent = d.slice(0,3);
+    b.onclick = ()=>{ currentDay = d; render(); };
+    tabsWrap.appendChild(b);
+  });
+  main.appendChild(tabsWrap);
+
+  const list = lessonsForDay(currentGroup, currentDay);
+  if(list.length===0){
+    const e = document.createElement('div');
+    e.className='empty-day';
+    e.textContent = '🌿 В этот день пар нет';
+    main.appendChild(e);
+    return;
+  }
+  list.forEach(l=>{
+    main.appendChild(buildCard(l));
+  });
+}
+
+function buildCard(l){
+  const card = document.createElement('div');
+  card.className = 'lesson-card type-'+l.type;
+  card.innerHTML = `
+    <div class="lesson-time">${l.time}</div>
+    <span class="lesson-type">${typeLabel(l.type)}</span>
+    <div class="lesson-name">${l.name}</div>
+    <div class="lesson-place">${l.place}</div>
+  `;
+  return card;
+}
+
+function renderGrid(main){
+  const wrap = document.createElement('div');
+  wrap.className = 'grid-wrap';
+  const table = document.createElement('table');
+  table.className = 'grid';
+  let thead = '<thead><tr><th>Время</th>';
+  DAYS.forEach(d=> thead += `<th>${d}${DAY_NOTE[d]?'<br><span style="font-weight:400;opacity:.85">'+DAY_NOTE[d]+'</span>':''}</th>`);
+  thead += '</tr></thead>';
+  table.innerHTML = thead;
+
+  const tbody = document.createElement('tbody');
+  for(let slot=0; slot<10; slot++){
+    const tr = document.createElement('tr');
+    const tdTime = document.createElement('td');
+    tdTime.className='time-cell';
+    tdTime.textContent = SLOTS_FULL[slot];
+    tr.appendChild(tdTime);
+
+    DAYS.forEach(day=>{
+      const td = document.createElement('td');
+      const raw = (DATA[currentGroup] && DATA[currentGroup][day]) || [];
+      const match = raw.find(([s,e])=> slot>=s && slot<=e);
+      if(match){
+        const isStart = match[0]===slot;
+        if(isStart){
+          const [s,e,type,name,place] = match;
+          const span = e-s+1;
+          td.rowSpan = span;
+          td.innerHTML = `<span class="g-name">${name}</span><span class="g-type">${typeLabel(type)}</span><span class="g-place">${place}</span>`;
+        } else {
+          td.style.display='none';
+        }
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  wrap.appendChild(table);
+  main.appendChild(wrap);
+}
+
+function renderWeek(main){
+  DAYS.forEach(day=>{
+    const block = document.createElement('div');
+    block.className = 'week-day-block';
+    const title = document.createElement('div');
+    title.className = 'week-day-title';
+    title.textContent = day + (DAY_NOTE[day] ? ' (' + DAY_NOTE[day] + ')' : '');
+    block.appendChild(title);
+
+    const list = lessonsForDay(currentGroup, day);
+    if(list.length===0){
+      const e = document.createElement('div');
+      e.className='empty-day';
+      e.style.padding='16px';
+      e.textContent = '🌿 Пар нет';
+      block.appendChild(e);
+    } else {
+      list.forEach(l=> block.appendChild(buildCard(l)));
+    }
+    main.appendChild(block);
+  });
+}
+
+/* ===================== THEME ===================== */
+const themeToggle = document.getElementById('themeToggle');
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeToggle.textContent = t==='dark' ? '☀️' : '🌙';
+  localStorage.setItem('schedule-theme', t);
+}
+const saved = localStorage.getItem('schedule-theme');
+const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+setTheme(saved || (prefersDark ? 'dark' : 'light'));
+themeToggle.onclick = ()=>{
+  const cur = document.documentElement.getAttribute('data-theme');
+  setTheme(cur==='dark' ? 'light' : 'dark');
+};
+
+render();
+</script>
+</body>
+</html>
